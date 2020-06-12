@@ -1,0 +1,18 @@
+[
+  {
+    "id": "bedtime",
+    "name": "Hora de dormir"
+  },
+  {
+    "id": "breakfast",
+    "name": "Desayuno"
+  },
+  {
+    "id": "dinner",
+    "name": "Cena"
+  },
+  {
+    "id": "lunch",
+    "name": "Comida"
+  }
+]

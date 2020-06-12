@@ -1,0 +1,114 @@
+[
+  {
+    "id": "2reCdq401yPnx2PEhT6q",
+    "name": "Miligramos",
+    "abbreviation": "mg"
+  },
+  {
+    "id": "3zl23bG3XUAmDwqfwy4M",
+    "name": "Inhalaciones"
+  },
+  {
+    "id": "7b06XsmR5JNi7xErnHmX",
+    "abbreviation": "ml",
+    "name": "Mililitros"
+  },
+  {
+    "id": "ADxpSGSOXCo8BfruvcGm",
+    "name": "Almohadillas"
+  },
+  {
+    "id": "AdYAFXQfzgwb1lwdbQBM",
+    "abbreviation": "mcg",
+    "name": "Microgramos"
+  },
+  {
+    "id": "Bb0ZB1SHEs6ELpNvEJzC",
+    "abbreviation": "%",
+    "name": "Por ciento"
+  },
+  {
+    "id": "EYlgGhSqqNjYBpTgpblk",
+    "name": "Gotas"
+  },
+  {
+    "id": "FYScnaS9OT5sUzfDKvMa",
+    "name": "Aerolosoles"
+  },
+  {
+    "id": "Fufe1kpHlrRBNKjB72Rn",
+    "name": "Bolsas"
+  },
+  {
+    "id": "JyHQfF92jsMQ06ukL5X6",
+    "name": "Supositorios"
+  },
+  {
+    "id": "K2VJsMtx2crUgD8rFkJL",
+    "name": "Soplos"
+  },
+  {
+    "id": "PAUpN3uO77HcFtQcLNLW",
+    "name": "Vacunas"
+  },
+  {
+    "id": "QpL7aSftH8JYjRwYqfF1",
+    "name": "Goteros"
+  },
+  {
+    "id": "SCKQy9D8d37DmS8ntYJC",
+    "abbreviation": "cda",
+    "name": "Cucharada"
+  },
+  {
+    "id": "Tz1qWqn6hMZr3cWtjSIk",
+    "name": "Capsula"
+  },
+  {
+    "id": "VWnvflADawdGwRxN56Wv",
+    "name": "Aplicador"
+  },
+  {
+    "id": "XY6sRgmqg9smTDl0fV9h",
+    "name": "Pastillas"
+  },
+  {
+    "id": "XvPl7ObjTnfqdYuZugcd",
+    "name": "Unidades",
+    "abbreviation": "U"
+  },
+  {
+    "id": "Zn9w9sAVDmsnVt8vun4j",
+    "name": "Tabletas"
+  },
+  {
+    "id": "ZzO9KQ4peG8PZ7FwyMnM",
+    "name": "Jeringa"
+  },
+  {
+    "id": "a3QqW8a8aufaFpE7dHmS",
+    "name": "Gramos",
+    "abbreviation": "g"
+  },
+  {
+    "id": "fjm1E2VD4eEatsKb3unh",
+    "name": "Barras"
+  },
+  {
+    "id": "qh21gWe5nU3irjkdNY8I",
+    "name": "Parches"
+  },
+  {
+    "id": "uvjOzwNKcYPTKp58dVAq",
+    "name": "Paquetes"
+  },
+  {
+    "id": "wzg5i4L4m3nVTgpcYVaq",
+    "name": "Dosis"
+  },
+  {
+    "id": "yjd66xipuofPx8GJvE16",
+    "abbreviation": "ctda",
+    "name": "Cucharadita"
+  }
+]

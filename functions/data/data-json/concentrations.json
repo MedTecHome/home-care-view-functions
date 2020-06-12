@@ -1,0 +1,52 @@
+[
+  {
+    "id": "3PWuVJ7dGzyj0KCEBzba",
+    "measure": "ml",
+    "name": "Mililitro"
+  },
+  {
+    "id": "50Ve5PyC4BYlPaGpmj1B",
+    "name": "Miligramo",
+    "measure": "mg"
+  },
+  {
+    "id": "N4OKo75GgrvChaeT25VK",
+    "name": "Miliequivalente ",
+    "measure": "meq"
+  },
+  {
+    "id": "VhTjZLDK0Q4GepUmBVoZ",
+    "measure": "u/ml",
+    "name": "Unidades por mililitro"
+  },
+  {
+    "id": "WHmbISdAENg4QKAkJ7zV",
+    "name": "Miligramo por mililitro",
+    "measure": "mg/ml"
+  },
+  {
+    "id": "cAcEAnQjDSkQpS9fjTTT",
+    "measure": "%",
+    "name": "Por ciento"
+  },
+  {
+    "id": "gEEyNdA9HXyBwrNrCHNf",
+    "measure": "meq/ml",
+    "name": "Miliequivalente por mililitro"
+  },
+  {
+    "id": "j5KwZ0w8eZEgcJzLEgmO",
+    "measure": "u",
+    "name": "Unidad"
+  },
+  {
+    "id": "m3nbTheVreWxHqr7CEM0",
+    "name": "Colonias formadas en unidades por mililitro",
+    "measure": "cfu/ml"
+  },
+  {
+    "id": "y2z3RdMav6HhfP4SnEOH",
+    "measure": "ui",
+    "name": "Unidad internacional"
+  }
+]
