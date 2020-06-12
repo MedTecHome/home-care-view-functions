@@ -78,10 +78,6 @@ const getForMonitoring = async (params) => {
     user: user || "none",
     ...filters,
   });
-  const heartrate = await getHeartrate(1, 0, {
-    user: user || "none",
-    ...filters,
-  });
   const temperature = await getTemperature(1, 0, {
     user: user || "none",
     ...filters,
@@ -101,7 +97,6 @@ const getForMonitoring = async (params) => {
     user: user || "none",
     ...filters,
   });
-  const others = await getOthers(1, 0, { user: user || "none", ...filters });
 
   return {
     data: [
@@ -114,7 +109,6 @@ const getForMonitoring = async (params) => {
       ...inr.data,
       ...oxygen.data,
       ...exercises.data,
-      ...others.data,
     ],
   };
 };
