@@ -13,7 +13,6 @@ module.exports = (Model) => {
   router.get("/", async (req, res, next) => {
     const { limit = 0, page = 0, ...filters } = req.query;
     const offset = parseInt(page) * parseInt(limit);
-    console.log(offset);
     try {
       const result = await Model.getList(parseInt(limit), offset, filters);
       return res.json(result);
