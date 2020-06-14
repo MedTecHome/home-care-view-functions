@@ -1,4 +1,3 @@
-const moment = require("moment");
 const { getList: getPressure } = require("./pressure");
 const { getList: getHeartrate } = require("./heartrate");
 const { getList: getTemperature } = require("./temperature");
@@ -10,7 +9,7 @@ const { getList: getOxygen } = require("./oxygen");
 const { getList: getExercises } = require("./exercises");
 const { getList: getOthers } = require("./othersTest");
 
-const getList = async (params) => {
+const getList = async (limit, offset, params) => {
   const { user, ...filters } = params;
   try {
     const pressure = await getPressure(1, 0, {
@@ -42,6 +41,19 @@ const getList = async (params) => {
     });
     const others = await getOthers(1, 0, { user: user || "none", ...filters });
 
+    const aux = [
+      ...pressure.data,
+      ...heartrate.data,
+      ...temperature.data,
+      ...breathing.data,
+      ...weight.data,
+      ...glucose.data,
+      ...inr.data,
+      ...oxygen.data,
+      ...exercises.data,
+      ...others.data,
+    ];
+
     return {
       total:
         pressure.data.length +
@@ -54,18 +66,7 @@ const getList = async (params) => {
         oxygen.data.length +
         exercises.data.length +
         others.data.length,
-      data: [
-        ...pressure.data,
-        ...heartrate.data,
-        ...temperature.data,
-        ...breathing.data,
-        ...weight.data,
-        ...glucose.data,
-        ...inr.data,
-        ...oxygen.data,
-        ...exercises.data,
-        ...others.data,
-      ],
+      data: aux.sort((a, b) => b.clinicalDate - a.clinicalDate),
     };
   } catch (e) {
     throw new Error(e);
@@ -101,7 +102,6 @@ const getForMonitoring = async (params) => {
   return {
     data: [
       ...pressure.data,
-      ...heartrate.data,
       ...temperature.data,
       ...breathing.data,
       ...weight.data,
@@ -113,7 +113,90 @@ const getForMonitoring = async (params) => {
   };
 };
 
+const getForEvolution = async (limit, offset, params) => {
+  const { user, ...filters } = params;
+  try {
+    const pressure = await getPressure(limit, offset, {
+      user: user || "none",
+      ...filters,
+    });
+    const heartrate = await getHeartrate(limit, offset, {
+      user: user || "none",
+      ...filters,
+    });
+    const temperature = await getTemperature(limit, offset, {
+      user: user || "none",
+      ...filters,
+    });
+    const weight = await getWeight(limit, offset, {
+      user: user || "none",
+      ...filters,
+    });
+    const glucose = await getGlucose(limit, offset, {
+      user: user || "none",
+      ...filters,
+    });
+    const breathing = await getBreathing(limit, offset, {
+      user: user || "none",
+      ...filters,
+    });
+    const inr = await getINR(limit, offset, {
+      user: user || "none",
+      ...filters,
+    });
+    const oxygen = await getOxygen(limit, offset, {
+      user: user || "none",
+      ...filters,
+    });
+    const exercises = await getExercises(limit, offset, {
+      user: user || "none",
+      ...filters,
+    });
+    const others = await getOthers(limit, offset, {
+      user: user || "none",
+      ...filters,
+    });
+
+    const aux = [
+      ...pressure.data,
+      ...heartrate.data,
+      ...temperature.data,
+      ...breathing.data,
+      ...weight.data,
+      ...glucose.data,
+      ...inr.data,
+      ...oxygen.data,
+      ...exercises.data,
+      ...others.data,
+    ];
+
+    const result = aux
+      .map((a) => {
+        return {
+          id: a.id,
+          type: a.type,
+          user: user,
+          list: aux.filter((b) => b.type === a.type),
+        };
+      })
+      .filter(
+        (thing, index, self) =>
+          index ===
+          self.findIndex((t) => {
+            return t.type === thing.type;
+          })
+      );
+
+    return {
+      data: result,
+    };
+  } catch (e) {
+    throw new Error(e);
+  }
+};
+
 module.exports = {
   getList,
   getForMonitoring,
+  getForEvolution,
 };

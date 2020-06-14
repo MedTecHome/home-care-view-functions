@@ -15,6 +15,7 @@ route.use("/breathing", require("./clinical-test/breathing"));
 route.use("/oxygen", require("./clinical-test/oxygen"));
 route.use("/exercises", require("./clinical-test/exercises"));
 route.use("/otherstest", require("./clinical-test/othersTest"));
+route.use("/clinicaltest", require("./clinical-test/clinicalTest"));
 route.use("/evolution", require("./evolution"));
 route.use("/monitoring", require("./monitoring"));
 route.use("/roles", require("./roles"));

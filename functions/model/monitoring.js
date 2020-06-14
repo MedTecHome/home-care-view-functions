@@ -21,7 +21,6 @@ const getList = async (limit, offset, filters) => {
           moment.unix(aux[0].clinicalDate).format("YYYY-MM-DD")
       )
       .forEach((el) => {
-        console.log(el);
         result = {
           ...result,
           [el.type]: el,

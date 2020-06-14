@@ -3,7 +3,7 @@ const { retriveDoc, retriveData } = require("../utils");
 const getById = async (id) => {
   const path = `others/${id}`;
   const result = await retriveDoc(path);
-  return { ...result, type: "others" };
+  return { ...result, type: "otherstest" };
 };
 
 const getList = async (limit, offset, filters) => {
@@ -18,7 +18,7 @@ const getList = async (limit, offset, filters) => {
   );
   return {
     ...result,
-    data: result.data.map((el) => ({ ...el, type: "others" })),
+    data: result.data.map((el) => ({ ...el, type: "otherstest" })),
   };
 };
 

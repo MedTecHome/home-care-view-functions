@@ -27,7 +27,7 @@ const setFilters = (itemRef, filters) => {
         break;
       }
       case "clinicalDate": {
-        const customDate = parseInt(filters[k], 10);
+        const customDate = parseInt(filters[k]);
         const tomorrow = moment.unix(customDate).add(1, "days").unix();
         ref = ref
           .orderBy(k, "desc")
@@ -36,23 +36,33 @@ const setFilters = (itemRef, filters) => {
         break;
       }
       case "rangeDate": {
-        const start = filters[k][0];
-        const end = filters[k][1];
+        const start = parseInt(filters[k][0]);
+        const end = parseInt(filters[k][1]);
         ref = ref
           .where("clinicalDate", ">=", start)
           .where("clinicalDate", "<=", end);
         break;
       }
       case "startDate": {
-        const start = filters[k][0];
-        const end = filters[k][1];
+        const start = parseInt(filters[k][0]);
+        const end = parseInt(filters[k][1]);
         ref = ref.where(k, ">=", start).where(k, "<=", end);
         break;
       }
       case "endDate": {
-        const start = filters[k][0];
-        const end = filters[k][1];
+        const start = parseInt(filters[k][0]);
+        const end = parseInt(filters[k][1]);
         ref = ref.where(k, ">=", start).where(k, "<=", end);
+        break;
+      }
+      case "externalStartDate": {
+        const date = parseInt(filters[k]);
+        ref = ref.where("startDate", "<", date);
+        break;
+      }
+      case "externalEndDate": {
+        const date = parseInt(filters[k]);
+        ref = ref.where("endDate", ">", date);
         break;
       }
       default: {

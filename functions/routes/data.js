@@ -21,7 +21,6 @@ router.get("/getData", async (req, res) => {
 
 router.get("/setData", async (req, res) => {
   const { path } = req.query;
-  console.log(path);
   const data = require(`../data/data-json/${path}.json`);
   try {
     await data.forEach(async ({ id, ...values }) => {
