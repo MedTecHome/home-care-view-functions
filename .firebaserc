@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "test1-6f25a"
+    "default": "test1-6f25a",
+    "homecareview": "HomeCare-View",
   }
 }
