@@ -1,6 +1,6 @@
 {
-  "projects": {
-    "default": "test1-6f25a",
-    "homecareview": "HomeCare-View",
-  }
+    "projects": {
+        "default": "test1-6f25a",
+        "homecareview": "homecareview-blaze"
+    }
 }
