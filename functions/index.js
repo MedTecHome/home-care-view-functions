@@ -1,14 +1,20 @@
-const { db, functions } = require("./config");
+const { db, auth, functions } = require("./config");
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const app = express();
 
-app.use(cors({ origin: true }));
+app.use(
+  cors({
+    origin: true,
+    credentials: true,
+    allowedHeaders: "*",
+  })
+);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-/*app.use((req, res, next) => {
+app.use((req, res, next) => {
   if (
     req.headers.authorization &&
     req.headers.authorization.startsWith("Bearer ")
@@ -18,7 +24,16 @@ app.use(bodyParser.urlencoded({ extended: false }));
   } else {
     return res.status(403).json({ error: "Unauthorized" });
   }
-});*/
+});
+
+app.use(async (req, res, next) => {
+  try {
+    await auth.verifyIdToken(req.idToken);
+    return next();
+  } catch (e) {
+    return next(e);
+  }
+});
 
 app.use("/", require("./routes/index"));
 

@@ -14,7 +14,12 @@ const deleteUser = async (uid) => {
   return await auth.deleteUser(uid);
 };
 
+const getUserByEmail = async (email) => {
+  return await auth.getUserByEmail(email);
+};
+
 module.exports = {
   createUser,
   deleteUser,
+  getUserByEmail,
 };
