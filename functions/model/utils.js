@@ -9,14 +9,14 @@ const setFilters = (itemRef, filters) => {
     switch (k) {
       case "name": {
         ref = ref
-          .where(k, ">=", filters[k])
-          .where(k, "<=", `${filters[k]}\uf8ff`);
+          .where(k, ">=", filters[k].toLowerCase())
+          .where(k, "<=", `${filters[k].toLowerCase()}\uf8ff`);
         break;
       }
       case "fullname": {
         ref = ref
-          .where(k, ">=", filters[k])
-          .where(k, "<=", `${filters[k]}\uf8ff`);
+          .where(k, ">=", filters[k].toLowerCase())
+          .where(k, "<=", `${filters[k].toLowerCase()}\uf8ff`);
         break;
       }
       case "monitoring": {

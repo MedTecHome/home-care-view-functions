@@ -1,4 +1,4 @@
-const { db, auth, functions } = require("./config");
+const { db, auth, functions, algoliaclient } = require("./config");
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
@@ -14,7 +14,7 @@ app.use(
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use((req, res, next) => {
+/*app.use((req, res, next) => {
   if (
     req.headers.authorization &&
     req.headers.authorization.startsWith("Bearer ")
@@ -28,12 +28,12 @@ app.use((req, res, next) => {
 
 app.use(async (req, res, next) => {
   try {
-    await auth.verifyIdToken(req.idToken);
+   await auth.verifyIdToken(req.idToken);
     return next();
   } catch (e) {
     return next(e);
   }
-});
+});*/
 
 app.use("/", require("./routes/index"));
 
@@ -42,8 +42,10 @@ exports.setFullName = functions.firestore
   .onWrite(async (change, context) => {
     const profRef = db.collection("profiles").doc(change.after.id);
     await profRef.update({
-      fullname: `${change.after.data().name} ${
-        change.after.data().lastName ? change.after.data().lastName : ""
+      fullname: `${change.after.data().name.toLowerCase()} ${
+        change.after.data().lastName
+          ? change.after.data().lastName.toLowerCase()
+          : ""
       }`,
     });
     return null;
