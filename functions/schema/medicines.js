@@ -25,6 +25,8 @@ class Medicine {
 
   toJSON() {
     return Object.getOwnPropertyNames(this).reduce((a, b) => {
+      if (this[b] == undefined || this[b] == null)
+        throw new Error(`Field ${b} is required`);
       a[b] = this[b];
       return a;
     }, {});

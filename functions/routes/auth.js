@@ -1,25 +1,13 @@
-const { auth } = require("../config");
 const route = require("express").Router();
-const { createUser, deleteUser, getUserByEmail } = require("../model/auth");
+const { getUserByEmail } = require("../model/auth");
+const { createAdmin } = require("../model/profiles");
 
-route.post("/createUser", async (req, res) => {
-  const { username, password, fullname } = req.body;
+route.post("/createAdmin", async (req, res, next) => {
   try {
-    const user = await createUser(username, password, fullname);
-    const link = await auth.generatePasswordResetLink(user.email);
-    res.json({ user, link });
+    await createAdmin(req.body);
+    return res.send("Ok");
   } catch (e) {
-    res.status(500).json({ error: e.message, code: e.code });
-  }
-});
-
-route.post("/deleteUser", async (req, res) => {
-  const { userId } = req.body;
-  try {
-    await deleteUser(userId);
-    res.send("Ok");
-  } catch (e) {
-    res.status(500).json({ error: e.message, code: e.code });
+    return next(e);
   }
 });
 
