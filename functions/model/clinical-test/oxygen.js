@@ -1,4 +1,5 @@
-const { retriveDoc, retriveData } = require("../utils");
+const { retriveDoc, retriveData, addDoc } = require("../utils");
+const { Oxygen } = require("../../schema/clinicalTest");
 
 const getById = async (id) => {
   const path = `oxygen/${id}`;
@@ -22,7 +23,18 @@ const getList = async (limit, offset, filters) => {
   };
 };
 
+const addItem = async (values) => {
+  const path = `oxygen`;
+  let data = new Oxygen(values).toJSON();
+  if (Object.keys(data).length > 0) {
+    await addDoc(path, data);
+  } else {
+    throw new Error("Pass e valid medicine information");
+  }
+};
+
 module.exports = {
   getById,
   getList,
+  addItem,
 };
