@@ -1,21 +1,27 @@
 const { auth } = require("../config");
+const { USERNAME_DOMAIN } = require("../helpers/domain");
 
-const createUser = async (email, password, fullname) => {
-  return await auth.createUser({
-    email: email,
-    emailVerified: false,
-    password,
-    displayName: fullname,
-    disabled: false,
-  });
+const createUser = async ({ username, password, name, lastName }) => {
+  if (username) {
+    const user = await auth.createUser({
+      email: `${username}${USERNAME_DOMAIN}`,
+      emailVerified: false,
+      password,
+      displayName: `${name} ${lastName ? lastName : ""}`,
+      disabled: false,
+    });
+    return { uid: user.uid, email: user.email };
+  } else {
+    throw new Error("Invalid username");
+  }
 };
 
-const deleteUser = async (uid) => {
-  return await auth.deleteUser(uid);
+const deleteUser = (uid) => {
+  return auth.deleteUser(uid);
 };
 
-const getUserByEmail = async (email) => {
-  return await auth.getUserByEmail(email);
+const getUserByEmail = (email) => {
+  return auth.getUserByEmail(email);
 };
 
 module.exports = {

@@ -82,25 +82,21 @@ const retriveData = async (
   field,
   sort
 ) => {
-  try {
-    let dataRef = db.collection(`${path}`);
-    if (field && sort) {
-      dataRef = dataRef.orderBy(field, sort);
-    }
-    dataRef = setFilters(dataRef, filters);
-    const total = (await dataRef.get()).size;
-
-    if (limit) {
-      dataRef = dataRef.limit(limit).offset(offset);
-    }
-    const data = (await dataRef.get())
-      .docChanges()
-      .map(({ doc }) => mutateDoc(doc));
-
-    return { total, data };
-  } catch (e) {
-    throw new Error(e);
+  let dataRef = db.collection(`${path}`);
+  if (field && sort) {
+    dataRef = dataRef.orderBy(field, sort);
   }
+  dataRef = setFilters(dataRef, filters);
+  const total = (await dataRef.get()).size;
+
+  if (limit) {
+    dataRef = dataRef.limit(limit).offset(offset);
+  }
+  const data = (await dataRef.get())
+    .docChanges()
+    .map(({ doc }) => mutateDoc(doc));
+
+  return { total, data };
 };
 
 const retriveDoc = async (path) => {
@@ -109,7 +105,27 @@ const retriveDoc = async (path) => {
   return mutateDoc(result);
 };
 
+const setDoc = (path, data) => {
+  return db.doc(path).set(data);
+};
+
+const addDoc = (path, data) => {
+  return db.collection(path).add(data);
+};
+
+const editDoc = (path, data) => {
+  return db.doc(path).update(data);
+};
+
+const deleteDoc = (path) => {
+  return db.doc(path).delete();
+};
+
 module.exports = {
   retriveData,
   retriveDoc,
+  setDoc,
+  addDoc,
+  editDoc,
+  deleteDoc,
 };

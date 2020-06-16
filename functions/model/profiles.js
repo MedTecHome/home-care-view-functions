@@ -1,4 +1,12 @@
-const { retriveDoc, retriveData } = require("./utils");
+const {
+  retriveDoc,
+  retriveData,
+  setDoc,
+  editDoc,
+  deleteDoc,
+} = require("./utils");
+const { setProfile } = require("../schema/profiles");
+const { createUser, deleteUser } = require("./auth");
 
 const getById = async (id) => {
   const path = `profiles/${id}`;
@@ -28,7 +36,37 @@ const getList = async (limit, offset, filters) => {
   };
 };
 
+const addItem = async (values) => {
+  let data = setProfile(values).toJSON();
+  const user = await createUser(values);
+  const path = `profiles/${user.uid}`;
+  if (Object.keys(data).length > 0) {
+    await setDoc(path, data);
+  } else {
+    throw new Error("Pass e valid profile information");
+  }
+};
+
+const updateItem = async (id, values) => {
+  const path = `profiles/${id}`;
+  let data = setProfile(values).toJSON();
+  if (Object.keys(data).length > 0) {
+    await editDoc(path, data);
+  } else {
+    throw new Error("Pass e valid profile information");
+  }
+};
+
+const deleteItem = async (id) => {
+  const path = `profiles/${id}`;
+  await deleteDoc(path);
+  await deleteUser(id);
+};
+
 module.exports = {
   getById,
   getList,
+  addItem,
+  updateItem,
+  deleteItem,
 };

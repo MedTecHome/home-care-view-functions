@@ -1,4 +1,5 @@
-const { retriveDoc, retriveData } = require("../utils");
+const { retriveDoc, retriveData, addDoc } = require("../utils");
+const { Heartrate } = require("../../schema/clinicalTest");
 
 const getById = async (id) => {
   const path = `heartrate/${id}`;
@@ -22,7 +23,24 @@ const getList = async (limit, offset, filters) => {
   };
 };
 
+const addItem = async (values) => {
+  const path = `heartrate`;
+  let data = new Heartrate(values).toJSON();
+  if (Object.keys(data).length > 0) {
+    await addDoc(path, data);
+  } else {
+    throw new Error("Pass e valid medicine information");
+  }
+};
+
 module.exports = {
   getById,
   getList,
+  addItem,
+};
+
+module.exports = {
+  getById,
+  getList,
+  addItem,
 };
