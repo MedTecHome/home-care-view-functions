@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 const { db, auth, functions } = require("./config");
 const express = require("express");
 const cors = require("cors");
@@ -9,6 +10,7 @@ app.use(
     origin: true,
     credentials: true,
     allowedHeaders: "*",
+    methods: "GET, POST, PUT, DELETE",
   })
 );
 app.use(bodyParser.json());
@@ -31,7 +33,7 @@ app.use(async (req, res, next) => {
     await auth.verifyIdToken(req.idToken);
     return next();
   } catch (e) {
-    return res.status(500).json({ error: e.message });
+    return res.status(500).json({ error: e });
   }
 });
 
