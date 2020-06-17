@@ -1,3 +1,4 @@
+const moment = require("moment");
 class Profile {
   constructor({
     name,
@@ -30,7 +31,7 @@ class Clinic extends Profile {
     primaryPhone,
     secondaryPhone = "",
     phoneVisible = false,
-    secondaryPhoneVisible = false,
+    phoneSecondaryVisible = false,
     maxDoctors,
     maxPatients,
     address = "",
@@ -43,7 +44,7 @@ class Clinic extends Profile {
     this.logoUrl = logoUrl;
     this.secondaryPhone = secondaryPhone;
     this.phoneVisible = phoneVisible;
-    this.secondaryPhoneVisible = secondaryPhoneVisible;
+    this.phoneSecondaryVisible = phoneSecondaryVisible;
     this.maxDoctors = maxDoctors;
     this.realDoctors = 0;
     this.maxPatients = maxPatients;
@@ -57,7 +58,7 @@ class Doctor extends Profile {
     primaryPhone,
     secondaryPhone = "",
     phoneVisible = false,
-    secondaryPhoneVisible = false,
+    phoneSecondaryVisible = false,
     parent,
     ...profile
   }) {
@@ -65,7 +66,7 @@ class Doctor extends Profile {
     this.primaryPhone = primaryPhone;
     this.secondaryPhone = secondaryPhone;
     this.phoneVisible = phoneVisible;
-    this.secondaryPhoneVisible = secondaryPhoneVisible;
+    this.phoneSecondaryVisible = phoneSecondaryVisible;
     this.parent = parent;
   }
 }
@@ -79,20 +80,22 @@ class Patient extends Profile {
     primaryPhone,
     secondaryPhone = "",
     phoneVisible = false,
-    secondaryPhoneVisible = false,
+    phoneSecondaryVisible = false,
     parent,
+    agreement,
     ...profile
   }) {
     super(profile);
     this.primaryPhone = primaryPhone;
     this.secondaryPhone = secondaryPhone;
     this.phoneVisible = phoneVisible;
-    this.secondaryPhoneVisible = secondaryPhoneVisible;
+    this.phoneSecondaryVisible = phoneSecondaryVisible;
     this.sex = sex;
     this.height = height;
-    this.birthday = birthday;
+    this.birthday = moment(birthday).toDate();
     this.address = address;
     this.parent = parent;
+    this.agreement = agreement;
   }
 }
 
