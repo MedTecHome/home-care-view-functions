@@ -63,10 +63,23 @@ const deleteItem = async (id) => {
   await deleteUser(id);
 };
 
+const createAdmin = async (values) => {
+  const role = "admin";
+  let data = setProfile({ ...values, role }).toJSON();
+  const user = await createUser(values);
+  const path = `profiles/${user.uid}`;
+  if (Object.keys(data).length > 0) {
+    await setDoc(path, data);
+  } else {
+    throw new Error("Pass e valid profile information");
+  }
+};
+
 module.exports = {
   getById,
   getList,
   addItem,
   updateItem,
   deleteItem,
+  createAdmin,
 };
