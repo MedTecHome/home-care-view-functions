@@ -6,7 +6,7 @@ const {
   deleteDoc,
 } = require("./utils");
 const { setProfile } = require("../schema/profiles");
-const { createUser, deleteUser } = require("./auth");
+const { createUser, deleteUser, EditUserPassword } = require("./auth");
 
 const getById = async (id) => {
   const path = `profiles/${id}`;
@@ -49,8 +49,12 @@ const addItem = async (values) => {
 
 const updateItem = async (id, values) => {
   const path = `profiles/${id}`;
+  const oldDoc = await getById(id);
   let data = setProfile(values).toJSON();
   if (Object.keys(data).length > 0) {
+    if (oldDoc.username !== values.username) {
+      await EditUserPassword({ id, username: values.username });
+    }
     await editDoc(path, data);
   } else {
     throw new Error("Pass e valid profile information");

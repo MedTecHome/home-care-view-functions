@@ -1,6 +1,18 @@
 const { auth } = require("../config");
 const { USERNAME_DOMAIN } = require("../helpers/domain");
 
+const EditUserPassword = ({ id, username, password }) => {
+  console.log(id, username, password);
+  try {
+    auth.updateUser(id, {
+      ...(username ? { email: `${username}${USERNAME_DOMAIN}` } : {}),
+      ...(password ? { password } : {}),
+    });
+  } catch (e) {
+    throw new Error(e);
+  }
+};
+
 const createUser = async ({ username, password, name, lastName }) => {
   if (!password) throw new Error("Field password is required");
   if (username) {
@@ -36,4 +48,5 @@ module.exports = {
   createUser,
   deleteUser,
   getUserByEmail,
+  EditUserPassword,
 };

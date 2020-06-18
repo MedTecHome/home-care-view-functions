@@ -1,10 +1,19 @@
 const route = require("express").Router();
-const { getUserByEmail } = require("../model/auth");
+const { getUserByEmail, EditUserPassword } = require("../model/auth");
 const { createAdmin } = require("../model/profiles");
 
 route.post("/createAdmin", async (req, res, next) => {
   try {
     await createAdmin(req.body);
+    return res.send("Ok");
+  } catch (e) {
+    return next(e);
+  }
+});
+
+route.post("/editUserPassword", async (req, res, next) => {
+  try {
+    await EditUserPassword(req.body);
     return res.send("Ok");
   } catch (e) {
     return next(e);
