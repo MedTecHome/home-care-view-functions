@@ -44,10 +44,6 @@
     "name": "Supositorios"
   },
   {
-    "id": "K2VJsMtx2crUgD8rFkJL",
-    "name": "Soplos"
-  },
-  {
     "id": "PAUpN3uO77HcFtQcLNLW",
     "name": "Vacunas"
   },
@@ -66,7 +62,7 @@
   },
   {
     "id": "VWnvflADawdGwRxN56Wv",
-    "name": "Aplicador"
+    "name": "Aplicaciones"
   },
   {
     "id": "XY6sRgmqg9smTDl0fV9h",
@@ -110,5 +106,9 @@
     "id": "yjd66xipuofPx8GJvE16",
     "abbreviation": "ctda",
     "name": "Cucharadita"
+  },
+  {
+    "id": "yjd66xipuofPx8GJvE17",
+    "name": "Pulsaciones"
   }
 ]

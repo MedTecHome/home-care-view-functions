@@ -1,51 +1,50 @@
 [
   {
     "id": "0WqwToxExHpUTIGJI230",
-    "name": "Por boca"
+    "name": "Vía Oral"
   },
   {
     "id": "3kkkhE74grLUz6d6jnSN",
-    "name": "A través de un tubo de alimentación"
+    "name": "Sublingual"
   },
   {
     "id": "981wbgQbqFdPdCPO7Foe",
-    "name": "Im Auge"
+    "name": "Vía Oftálmica"
   },
   {
     "id": "Af9yOiUTmU8Ti9FKszXw",
-    "name": "Rectal"
+    "name": "Nasal (Aerosol/gotas)"
   },
   {
     "id": "Hw2RlUpcxw2OMmRTAQmq",
-    "name": "Inhalando"
+    "name": "Vía Ótica"
   },
   {
     "id": "Uudxw8UboUNumzVVnFWy",
-    "name": "A través de la piel"
+    "name": "Tópico (Cutáneo)"
   },
   {
     "id": "VjWBtwbMQJKd8hkmkh42",
-    "name": "Por inyección"
+    "name": "Vía Vaginal"
   },
   {
     "id": "VpamX2GTzCt6zx5JjznY",
-    "name": "Vaginal"
+    "name": "Vía Rectal"
   },
   {
     "id": "bo4g6XGddVTET20PHTvW",
-    "name": "En el oído"
+    "name": "Transdérmico (parche)"
   },
   {
     "id": "e4oOTU4rvQW58lcpia1V",
-    "name": "En la nariz (aerosol/gotas)"
+    "name": "Vía Enteral"
   },
   {
     "id": "fHydOWCRKAcG5oC1LEoc",
-    "name": "Debajo de la lengua"
+    "name": "Intramuscular"
   },
   {
     "id": "wRyMHWxsRTomm7BRT7eP",
-    "abbrevation": "IV",
-    "name": "A través de una vía intravenosa"
+    "name": "Endovenosa"
   }
 ]
