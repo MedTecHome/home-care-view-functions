@@ -11,7 +11,8 @@ class Medicine {
     administrationReason = "",
     observations = "",
   }) {
-    this.name = name.toLowerCase();
+    this.name = name;
+    this.lowerName = this.name.toLowerCase();
     this.clinic = clinic;
     this.concentrationCant = concentrationCant;
     this.concentrationType = concentrationType;

@@ -11,34 +11,34 @@ const { getList: getOthers } = require("./othersTest");
 
 const getList = async (limit, offset, params) => {
   const { user, ...filters } = params;
-  const pressure = await getPressure(1, 0, {
+  const pressure = await getPressure(limit, offset, {
     user: user || "none",
     ...filters,
   });
-  const heartrate = await getHeartrate(1, 0, {
+  const heartrate = await getHeartrate(limit, offset, {
     user: user || "none",
     ...filters,
   });
-  const temperature = await getTemperature(1, 0, {
+  const temperature = await getTemperature(limit, offset, {
     user: user || "none",
     ...filters,
   });
-  const weight = await getWeight(1, 0, { user: user || "none", ...filters });
-  const glucose = await getGlucose(1, 0, {
+  const weight = await getWeight(limit, offset, { user: user || "none", ...filters });
+  const glucose = await getGlucose(limit, offset, {
     user: user || "none",
     ...filters,
   });
-  const breathing = await getBreathing(1, 0, {
+  const breathing = await getBreathing(limit, offset, {
     user: user || "none",
     ...filters,
   });
-  const inr = await getINR(1, 0, { user: user || "none", ...filters });
-  const oxygen = await getOxygen(1, 0, { user: user || "none", ...filters });
-  const exercises = await getExercises(1, 0, {
+  const inr = await getINR(limit, offset, { user: user || "none", ...filters });
+  const oxygen = await getOxygen(limit, offset, { user: user || "none", ...filters });
+  const exercises = await getExercises(limit, offset, {
     user: user || "none",
     ...filters,
   });
-  const others = await getOthers(1, 0, { user: user || "none", ...filters });
+  const others = await getOthers(limit, offset, { user: user || "none", ...filters });
 
   const aux = [
     ...pressure.data,

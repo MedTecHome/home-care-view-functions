@@ -8,8 +8,8 @@ class Profile {
     emailVisible = false,
     role,
   }) {
-    this.name = name.toLowerCase();
-    this.lastName = lastName.toLowerCase();
+    this.name = name;
+    this.lastName = lastName;
     this.email = email;
     this.username = username;
     this.emailVisible = emailVisible;

@@ -9,8 +9,8 @@ const setFilters = (itemRef, filters) => {
     switch (k) {
       case "name": {
         ref = ref
-          .where(k, ">=", filters[k].toLowerCase())
-          .where(k, "<=", `${filters[k].toLowerCase()}\uf8ff`);
+          .where('lowerName', ">=", filters[k].toLowerCase())
+          .where('lowerName', "<=", `${filters[k].toLowerCase()}\uf8ff`);
         break;
       }
       case "fullname": {
