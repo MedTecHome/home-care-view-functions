@@ -24,7 +24,7 @@ app.use((req, res, next) => {
     req.idToken = req.headers.authorization.split("Bearer ")[1];
     return next();
   } else {
-    return res.status(403).json({ error: "Unauthorized" });
+    return next(new Error("Unauthorized"));
   }
 });
 
@@ -33,11 +33,23 @@ app.use(async (req, res, next) => {
     await auth.verifyIdToken(req.idToken);
     return next();
   } catch (e) {
-    return res.status(500).json({ error: e });
+    return next(e.message);
   }
 });
 
 app.use("/", require("./routes/index"));
+
+app.use((req, res, next) => {
+  req.status = 404;
+  const error = new Error("Api endpoint not found")
+  next(error);
+})
+
+app.use((error, req, res, next) => {
+  if(error){
+    return res.status(req.status || 500).send({error: {code: error.code, message: error.message}})
+  }
+})
 
 exports.setFullName = functions.firestore
   .document("profiles/{profileId}")
