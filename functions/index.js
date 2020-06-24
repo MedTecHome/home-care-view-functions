@@ -15,7 +15,7 @@ app.use(
 );
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-
+/*
 app.use((req, res, next) => {
   if (
     req.headers.authorization &&
@@ -35,7 +35,7 @@ app.use(async (req, res, next) => {
   } catch (e) {
     return next(e.message);
   }
-});
+});*/
 
 app.use("/", require("./routes/index"));
 

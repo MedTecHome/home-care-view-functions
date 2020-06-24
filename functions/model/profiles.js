@@ -3,10 +3,9 @@ const {
   retriveData,
   setDoc,
   editDoc,
-  deleteDoc,
 } = require("./utils");
 const { setProfile } = require("../schema/profiles");
-const { createUser, deleteUser, EditUserPassword } = require("./auth");
+const { createUser, EditUser, getUserById } = require("./auth");
 
 const getById = async (id) => {
   const path = `profiles/${id}`;
@@ -27,12 +26,18 @@ const getList = async (limit, offset, filters) => {
     "fullname",
     "asc"
   );
+
+  const data = await Promise.all(result.data.map(async (element) => {
+    const userAuth = await getUserById(element.id)
+    return {
+    ...element,
+    ...(element.birthday ? { birthday: element.birthday.toDate() } : {}),
+    disabled: userAuth.disabled
+  }}))
+  
   return {
     ...result,
-    data: result.data.map((element) => ({
-      ...element,
-      ...(element.birthday ? { birthday: element.birthday.toDate() } : {}),
-    })),
+    data
   };
 };
 
@@ -53,7 +58,7 @@ const updateItem = async (id, values) => {
   let data = setProfile(values).toJSON();
   if (Object.keys(data).length > 0) {
     if (oldDoc.username !== values.username) {
-      await EditUserPassword({ id, username: values.username });
+      await EditUser({ id, username: values.username });
     }
     await editDoc(path, data);
   } else {
@@ -62,9 +67,9 @@ const updateItem = async (id, values) => {
 };
 
 const deleteItem = async (id) => {
-  const path = `profiles/${id}`;
-  await deleteDoc(path);
-  await deleteUser(id);
+  //const path = `profiles/${id}`;
+  //await deleteDoc(path);
+  await EditUser({id, disabled: true});
 };
 
 const createAdmin = async (values) => {

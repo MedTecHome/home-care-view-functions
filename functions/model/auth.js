@@ -1,12 +1,12 @@
 const { auth } = require("../config");
 const { USERNAME_DOMAIN } = require("../helpers/domain");
 
-const EditUserPassword = ({ id, username, password }) => {
-  console.log(id, username, password);
+const EditUser = ({ id, username, password, disabled=false }) => {
   try {
     auth.updateUser(id, {
       ...(username ? { email: `${username}${USERNAME_DOMAIN}` } : {}),
       ...(password ? { password } : {}),
+      disabled
     });
   } catch (e) {
     throw new Error(e);
@@ -40,6 +40,10 @@ const deleteUser = (uid) => {
   return auth.deleteUser(uid);
 };
 
+const getUserById = (id) => {
+  return auth.getUser(id)
+};
+
 const getUserByEmail = (email) => {
   return auth.getUserByEmail(email);
 };
@@ -47,6 +51,7 @@ const getUserByEmail = (email) => {
 module.exports = {
   createUser,
   deleteUser,
+  getUserById,
   getUserByEmail,
-  EditUserPassword,
+  EditUser: EditUser,
 };
