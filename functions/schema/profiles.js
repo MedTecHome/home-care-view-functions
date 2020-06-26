@@ -46,7 +46,6 @@ class Clinic extends Profile {
     this.phoneVisible = phoneVisible;
     this.phoneSecondaryVisible = phoneSecondaryVisible;
     this.maxDoctors = maxDoctors;
-    this.realDoctors = 0;
     this.maxPatients = maxPatients;
     this.address = address;
     this.parent = parent;
