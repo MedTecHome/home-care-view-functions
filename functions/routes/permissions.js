@@ -117,8 +117,7 @@ const access = {
 
 const permissions = async (req, res, next) => {
   const { userLogin, method, baseUrl } = req;
-  const splitedUrl = baseUrl.split("api")[1];
-  console.log(splitedUrl)
+  const splitedUrl = baseUrl.includes('api') ? baseUrl.split("api")[1] : baseUrl;
   try {
     if (userLogin) {
       const rolesWithAccess = access[splitedUrl][method.toLowerCase()];
