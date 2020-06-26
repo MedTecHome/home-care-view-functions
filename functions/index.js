@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 const { db, auth, functions } = require("./config");
+const { getById: getProfile } = require("./model/profiles");
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
@@ -15,7 +16,8 @@ app.use(
 );
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-/*
+
+
 app.use((req, res, next) => {
   if (
     req.headers.authorization &&
@@ -24,16 +26,33 @@ app.use((req, res, next) => {
     req.idToken = req.headers.authorization.split("Bearer ")[1];
     return next();
   } else {
+    req.status = 401;
     return next(new Error("Unauthorized"));
   }
 });
 
 app.use(async (req, res, next) => {
   try {
-    await auth.verifyIdToken(req.idToken);
+    const userLogin = await auth.verifyIdToken(req.idToken);
+    req.userLogin = await getProfile(userLogin.uid);
     return next();
   } catch (e) {
-    return next(e.message);
+    return next(e);
+  }
+});
+
+
+/*
+app.use(async (req, res, next) => {
+  try {   
+    // const id = '6KkcyToAmdQnmpdr7HTxIFYuZEI2'; // admin id
+    // const id = 'NSs59e3B3nhEmeqWGYqJdbLVpBD3'; // clinic id
+    //const id = 'qQqcCclJu6NVdFdDoRyhSfj6cqf1'; // doctor id
+     const id = '8nFFoW1hILdsCRq0zgDUoHQyVXs1'; // paciente id
+    req.userLogin = await getProfile(id)
+    return next();
+  } catch (e) {
+    return next(e);
   }
 });*/
 
@@ -41,16 +60,18 @@ app.use("/", require("./routes/index"));
 
 app.use((req, res, next) => {
   req.status = 404;
-  const error = new Error("Api endpoint not found")
+  const error = new Error("Api endpoint not found");
   next(error);
-})
+});
 
 app.use((error, req, res, next) => {
-  if(error){
-    console.log(error)
-    return res.status(req.status || 500).json({error})
+  if (error) {
+    console.log("error: ", error);
+    return res
+      .status(req.status || 500)
+      .json({ error: { message: error.message, code: error.code } });
   }
-})
+});
 
 exports.setFullName = functions.firestore
   .document("profiles/{profileId}")
@@ -63,19 +84,6 @@ exports.setFullName = functions.firestore
           : ""
       }`,
     });
-    return null;
-  });
-
-exports.setAge = functions.firestore
-  .document("profiles/{profileId}")
-  .onWrite(async (change, context) => {
-    if (change.after.data().role === "patient") {
-      let date1 = change.after.data().birthday.toDate();
-      let date2 = new Date(Date.now());
-      let yearsDiff = date2.getFullYear() - date1.getFullYear();
-      const profRef = db.collection("profiles").doc(change.after.id);
-      await profRef.update({ age: yearsDiff });
-    }
     return null;
   });
 
