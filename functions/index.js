@@ -41,14 +41,12 @@ app.use(async (req, res, next) => {
   }
 });
 
-
-/*
-app.use(async (req, res, next) => {
+/*app.use(async (req, res, next) => {
   try {   
-    // const id = '6KkcyToAmdQnmpdr7HTxIFYuZEI2'; // admin id
+    const id = '6KkcyToAmdQnmpdr7HTxIFYuZEI2'; // admin id
     // const id = 'NSs59e3B3nhEmeqWGYqJdbLVpBD3'; // clinic id
     //const id = 'qQqcCclJu6NVdFdDoRyhSfj6cqf1'; // doctor id
-     const id = '8nFFoW1hILdsCRq0zgDUoHQyVXs1'; // paciente id
+     //const id = '8nFFoW1hILdsCRq0zgDUoHQyVXs1'; // paciente id
     req.userLogin = await getProfile(id)
     return next();
   } catch (e) {
