@@ -18,25 +18,28 @@ const getById = async (id) => {
 
 const getList = async (limit, offset, filters) => {
   const path = `profiles`;
+  const {seeDisabled, ...rest} = filters;
   const result = await retriveData(
     path,
     limit,
     offset,
-    filters,
+    rest,
     "fullname",
     "asc"
   );
 
-  const data = await Promise.all(result.data.map(async (element) => {
+  const aux = await Promise.all(result.data.map(async (element) => {
     const userAuth = await getUserById(element.id)
     return {
     ...element,
     ...(element.birthday ? { birthday: element.birthday.toDate() } : {}),
     disabled: userAuth.disabled
   }}))
+
+  const data = aux.map(el => ({...el, visible: el.disabled ? seeDisabled : !el.disabled})).filter(el=> el.visible)
   
   return {
-    ...result,
+    total: result.total - (result.total - data.length),
     data
   };
 };
@@ -57,8 +60,8 @@ const updateItem = async (id, values) => {
   const oldDoc = await getById(id);
   let data = setProfile(values).toJSON();
   if (Object.keys(data).length > 0) {
-    if (oldDoc.username !== values.username) {
-      await EditUser({ id, username: values.username });
+    if (oldDoc.username !== values.username || !values.disabled ) {
+      await EditUser({ id, username: values.username, ...(!values.disabled ? {disabled: values.disabled} : {}) });
     }
     await editDoc(path, data);
   } else {

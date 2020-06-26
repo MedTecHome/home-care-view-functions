@@ -47,7 +47,8 @@ app.use((req, res, next) => {
 
 app.use((error, req, res, next) => {
   if(error){
-    return res.status(req.status || 500).send({error: {code: error.code, message: error.message}})
+    console.log(error)
+    return res.status(req.status || 500).json({error})
   }
 })
 

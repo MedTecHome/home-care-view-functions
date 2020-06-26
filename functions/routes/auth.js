@@ -26,7 +26,6 @@ route.get("/searchByEmail", async (req, res) => {
     await getUserByEmail(email);
     return res.json({ exist: true });
   } catch (e) {
-    console.log(e);
     if (e.code === "auth/user-not-found") return res.json({ exist: false });
     return res.status(500).json({ error: e.message, code: e.code });
   }
