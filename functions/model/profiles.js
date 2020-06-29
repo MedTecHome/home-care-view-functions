@@ -1,9 +1,4 @@
-const {
-  retriveDoc,
-  retriveData,
-  setDoc,
-  editDoc,
-} = require("./utils");
+const { retriveDoc, retriveData, setDoc, editDoc } = require("./utils");
 const { setProfile } = require("../schema/profiles");
 const { createUser, EditUser, getUserById } = require("./auth");
 
@@ -18,7 +13,7 @@ const getById = async (id) => {
 
 const getList = async (limit, offset, filters) => {
   const path = `profiles`;
-  const {seeDisabled, ...rest} = filters;
+  const { seeDisabled, ...rest } = filters;
   const result = await retriveData(
     path,
     limit,
@@ -28,30 +23,40 @@ const getList = async (limit, offset, filters) => {
     "asc"
   );
 
-  const aux = await Promise.all(result.data.map(async (element) => {
-    const userAuth = await getUserById(element.id)
-    return {
-    ...element,
-    ...(element.birthday ? { birthday: element.birthday.toDate() } : {}),
-    disabled: userAuth.disabled
-  }}))
+  const aux = await Promise.all(
+    result.data.map(async (element) => {
+      const userAuth = await getUserById(element.id);
+      return {
+        ...element,
+        ...(element.birthday ? { birthday: element.birthday.toDate() } : {}),
+        disabled: userAuth.disabled,
+      };
+    })
+  );
 
-  const data = aux.map(el => ({...el, visible: el.disabled ? seeDisabled : !el.disabled})).filter(el=> el.visible)
-  
+  const data = aux
+    .map((el) => ({ ...el, visible: el.disabled ? seeDisabled : !el.disabled }))
+    .filter((el) => el.visible);
+
   return {
     total: result.total - (result.total - data.length),
-    data
+    data,
   };
 };
 
 const addItem = async (values) => {
   let data = setProfile(values).toJSON();
-  const user = await createUser(values);
-  const path = `profiles/${user.uid}`;
-  if (Object.keys(data).length > 0) {
-    await setDoc(path, data);
+  const clinic = await getById(data.parent);
+  if (clinic.realDoctors < clinic.maxDoctors) {
+    const user = await createUser(values);
+    const path = `profiles/${user.uid}`;
+    if (Object.keys(data).length > 0) {
+      await setDoc(path, data);
+    } else {
+      throw new Error("Pass e valid profile information");
+    }
   } else {
-    throw new Error("Pass e valid profile information");
+    throw new Error("Access Denied");
   }
 };
 
@@ -60,8 +65,12 @@ const updateItem = async (id, values) => {
   const oldDoc = await getById(id);
   let data = setProfile(values).toJSON();
   if (Object.keys(data).length > 0) {
-    if (oldDoc.username !== values.username || !values.disabled ) {
-      await EditUser({ id, username: values.username, ...(!values.disabled ? {disabled: values.disabled} : {}) });
+    if (oldDoc.username !== values.username || !values.disabled) {
+      await EditUser({
+        id,
+        username: values.username,
+        ...(!values.disabled ? { disabled: values.disabled } : {}),
+      });
     }
     await editDoc(path, data);
   } else {
@@ -72,7 +81,7 @@ const updateItem = async (id, values) => {
 const deleteItem = async (id) => {
   //const path = `profiles/${id}`;
   //await deleteDoc(path);
-  await EditUser({id, disabled: true});
+  await EditUser({ id, disabled: true });
 };
 
 const createAdmin = async (values) => {
