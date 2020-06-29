@@ -1,4 +1,4 @@
-const { permissions } = require("./permissions");
+const { permissions } = require("../helpers/permissions");
 
 module.exports = (Model) => {
   const router = require("express").Router();
