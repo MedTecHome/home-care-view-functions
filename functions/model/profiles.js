@@ -14,6 +14,7 @@ const getById = async (id) => {
 const getList = async (limit, offset, filters) => {
   const path = `profiles`;
   const { seeDisabled, ...rest } = filters;
+  console.log(filters)
   const result = await retriveData(
     path,
     limit,
@@ -46,8 +47,8 @@ const getList = async (limit, offset, filters) => {
 
 const addItem = async (values) => {
   let data = setProfile(values).toJSON();
-  const clinic = await getById(data.parent);
-  if (clinic.realDoctors < clinic.maxDoctors) {
+  /*const clinic = await getById(data.parent);
+  if (clinic.realDoctors < clinic.maxDoctors) {*/
     const user = await createUser(values);
     const path = `profiles/${user.uid}`;
     if (Object.keys(data).length > 0) {
@@ -55,9 +56,9 @@ const addItem = async (values) => {
     } else {
       throw new Error("Pass e valid profile information");
     }
-  } else {
+  /*} else {
     throw new Error("Access Denied");
-  }
+  }*/
 };
 
 const updateItem = async (id, values) => {
