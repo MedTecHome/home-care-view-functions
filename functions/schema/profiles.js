@@ -48,7 +48,7 @@ class Clinic extends Profile {
     this.maxDoctors = maxDoctors;
     this.maxPatients = maxPatients;
     this.address = address;
-    this.parent = parent;
+    this.parent = parent;    
   }
 }
 
@@ -81,6 +81,7 @@ class Patient extends Profile {
     phoneVisible = false,
     phoneSecondaryVisible = false,
     parent,
+    clinic,
     agreement,
     ...profile
   }) {
@@ -92,8 +93,10 @@ class Patient extends Profile {
     this.sex = sex;
     this.height = height;
     this.birthday = moment(birthday).toDate();
+    this.age = moment().year() - moment(birthday).year();
     this.address = address;
     this.parent = parent;
+    this.clinic = clinic;
     this.agreement = agreement;
   }
 }
