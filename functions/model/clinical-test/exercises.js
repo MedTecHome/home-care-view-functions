@@ -8,6 +8,7 @@ const getById = async (id) => {
 };
 
 const getList = async (limit, offset, filters) => {
+  delete filters.userLogin;
   const path = `exercises`;
   const result = await retriveData(
     path,

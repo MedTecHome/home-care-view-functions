@@ -70,6 +70,9 @@ class Doctor extends Profile {
   }
 }
 
+class Nurse extends Doctor {
+}
+
 class Patient extends Profile {
   constructor({
     sex,
@@ -105,6 +108,9 @@ const setProfile = (values) => {
   switch (values.role) {
     case "patient": {
       return new Patient(values);
+    }
+    case 'nurse': {
+      return new Nurse(values);
     }
     case "doctor": {
       return new Doctor(values);

@@ -15,9 +15,10 @@ module.exports = (Model) => {
 
   router.get("/", permissions, async (req, res, next) => {
     const { limit = 0, page = 0, ...filters } = req.query;
+    const {userLogin} = req;
     const offset = parseInt(page) * parseInt(limit);
     try {
-      const result = await Model.getList(parseInt(limit), offset, filters);
+      const result = await Model.getList(parseInt(limit), offset, {...filters, userLogin});
       return res.json(result);
     } catch (e) {
       return next(e.message);

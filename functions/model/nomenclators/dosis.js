@@ -6,6 +6,7 @@ const getById = (id) => {
 };
 
 const getList = (limit, offset, filters) => {
+  delete filters.userLogin;
   const path = `dosis`;
   return retriveData(path, limit, offset, filters, "name", "asc");
 };

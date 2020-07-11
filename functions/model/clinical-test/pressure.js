@@ -7,7 +7,8 @@ const getById = async (id) => {
   return { ...result, type: "pressure" };
 };
 
-const getList = async (limit, offset, filters) => {
+const getList = async (limit, offset,  filters) => {
+  delete filters.userLogin;
   const path = `pressure`;
   const result = await retriveData(
     path,

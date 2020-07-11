@@ -13,6 +13,7 @@ const getById = (id) => {
 };
 
 const getList = (limit, offset, filters) => {
+  delete filters.userLogin;
   const path = `treatments`;
   const sort =
     filters.externalStartDate ||

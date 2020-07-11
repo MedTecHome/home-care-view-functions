@@ -1,123 +1,125 @@
 const access = {
   "/": {
-    get: ["admin", "clinic", "doctor", "patient"],
-    post: ["admin", "clinic", "doctor", "patient"],
-    put: ["admin", "clinic", "doctor", "patient"],
-    delete: ["admin", "clinic", "doctor", "patient"],
+    get: ["admin", "clinic", "doctor", "nurse", "patient"],
+    post: ["admin", "clinic", "doctor", "nurse", "patient"],
+    put: ["admin", "clinic", "doctor", "nurse", "patient"],
+    delete: ["admin", "clinic", "doctor", "nurse", "patient"],
   },
   "/data": {
-    get: ["admin", "clinic", "doctor", "patient"],
-    post: ["admin", "clinic", "doctor", "patient"],
-    put: ["admin", "clinic", "doctor", "patient"],
-    delete: ["admin", "clinic", "doctor", "patient"],
+    get: ["admin", "clinic", "doctor", "nurse", "patient"],
+    post: ["admin", "clinic", "doctor", "nurse", "patient"],
+    put: ["admin", "clinic", "doctor", "nurse", "patient"],
+    delete: ["admin", "clinic", "doctor", "nurse", "patient"],
   },
   "/profiles": {
-    get: ["admin", "clinic", "doctor", "patient"],
-    post: ["admin", "clinic", "doctor"],
-    put: ["admin", "clinic", "doctor"],
+    get: ["admin", "clinic", "doctor", "nurse", "patient"],
+    post: ["admin", "clinic", "doctor", "nurse"],
+    put: ["admin", "clinic", "doctor", "nurse"],
     delete: ["admin", "clinic", "doctor"],
   },
   "/medicines": {
-    get: ["doctor", "patient"],
-    post: ["doctor"],
-    put: ["doctor"],
+    get: ["doctor", "patient", "nurse"],
+    post: ["doctor", "nurse"],
+    put: ["doctor", "nurse"],
     delete: ["doctor"],
   },
   "/treatments": {
-    get: ["doctor", "patient"],
-    post: ["doctor"],
-    put: ["doctor"],
+    get: ["doctor", "nurse", "patient"],
+    post: ["doctor", "nurse"],
+    put: ["doctor", "nurse"],
     delete: ["doctor"],
   },
   "/pressure": {
-    get: ["doctor", "patient"],
+    get: ["doctor", "nurse", "patient"],
     post: ["patient"],
     put: ["patient"],
     delete: ["patient"],
   },
   "/heartrate": {
-    get: ["doctor", "patient"],
+    get: ["doctor", "nurse", "patient"],
     post: ["patient"],
     put: ["patient"],
     delete: ["patient"],
   },
   "/temperature": {
-    get: ["doctor", "patient"],
+    get: ["doctor", "nurse", "patient"],
     post: ["patient"],
     put: ["patient"],
     delete: ["patient"],
   },
   "/weight": {
-    get: ["doctor", "patient"],
+    get: ["doctor", "nurse", "patient"],
     post: ["patient"],
     put: ["patient"],
     delete: ["patient"],
   },
   "/glucose": {
-    get: ["doctor", "patient"],
+    get: ["doctor", "nurse", "patient"],
     post: ["patient"],
     put: ["patient"],
     delete: ["patient"],
   },
   "/inr": {
-    get: ["doctor", "patient"],
+    get: ["doctor", "nurse", "patient"],
     post: ["patient"],
     put: ["patient"],
     delete: ["patient"],
   },
   "/breathing": {
-    get: ["doctor", "patient"],
+    get: ["doctor", "nurse", "patient"],
     post: ["patient"],
     put: ["patient"],
     delete: ["patient"],
   },
   "/oxygen": {
-    get: ["doctor", "patient"],
+    get: ["doctor", "nurse", "patient"],
     post: ["patient"],
     put: ["patient"],
     delete: ["patient"],
   },
   "/exercises": {
-    get: ["doctor", "patient"],
+    get: ["doctor", "nurse", "patient"],
     post: ["patient"],
     put: ["patient"],
     delete: ["patient"],
   },
   "/otherstest": {
-    get: ["doctor", "patient"],
+    get: ["doctor", "nurse", "patient"],
     post: ["patient"],
     put: ["patient"],
     delete: ["patient"],
   },
   "/clinicaltest": {
-    get: ["doctor", "patient"],
+    get: ["doctor", "nurse", "patient"],
   },
   "/evolution": {
-    get: ["doctor"],
+    get: ["doctor", "nurse"],
   },
   "/monitoring": {
-    get: ["doctor"],
+    get: ["doctor", "nurse"],
   },
   "/roles": {
-    get: ["admin","clinic","doctor"],
+    get: ["admin", "clinic", "doctor", "nurse"],
   },
   "/administrationroute": {
-    get: ["admin", "clinic", "doctor", "patient"],
+    get: ["admin", "clinic", "doctor", "nurse", "patient"],
   },
   "/dosis": {
-    get: ["admin", "clinic", "doctor", "patient"],
+    get: ["admin", "clinic", "doctor", "nurse", "patient"],
   },
   "/shedules": {
-    get: ["admin", "clinic", "doctor", "patient"],
+    get: ["admin", "clinic", "doctor", "nurse", "patient"],
   },
   "/concentrations": {
-    get: ["admin", "clinic", "doctor", "patient"],
+    get: ["admin", "clinic", "doctor", "nurse", "patient"],
   },
 };
 
 const permissions = async (req, res, next) => {
   const { userLogin, method, baseUrl } = req;
-  const splitedUrl = baseUrl.includes('api') ? baseUrl.split("api")[1] : baseUrl;
+  const splitedUrl = baseUrl.includes("api")
+    ? baseUrl.split("api")[1]
+    : baseUrl;
   try {
     if (userLogin) {
       const rolesWithAccess = access[splitedUrl][method.toLowerCase()];
