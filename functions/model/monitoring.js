@@ -3,6 +3,7 @@ const { getList: getProfiles } = require("./profiles");
 const { getForMonitoring } = require("./clinical-test/clinicalTest");
 
 const getList = async (limit, offset, filters) => {
+  filters.role = 'patient';
   const profiles = await getProfiles(limit, offset, filters);
   const resultList = profiles.data.map(async (item) => {
     const clinicalTest = await getForMonitoring({ user: item.id });

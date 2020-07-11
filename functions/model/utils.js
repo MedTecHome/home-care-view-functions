@@ -102,6 +102,7 @@ const retriveData = async (
 const retriveDoc = async (path) => {
   let dataRef = db.doc(`${path}`);
   const result = await dataRef.get();
+  if(!result.exists) return null
   return mutateDoc(result);
 };
 

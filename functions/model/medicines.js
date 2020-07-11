@@ -13,6 +13,7 @@ const getById = (id) => {
 };
 
 const getList = (limit, offset, filters) => {
+  delete filters.userLogin;
   const path = `medicines`;
   const fieldSort = filters.name ? 'lowerName' : 'name'
   return retriveData(path, limit, offset, filters, fieldSort, "asc");

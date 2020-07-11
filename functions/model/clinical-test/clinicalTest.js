@@ -11,6 +11,7 @@ const { getList: getOthers } = require("./othersTest");
 
 const getList = async (limit, offset, params) => {
   const { user, ...filters } = params;
+  delete filters.userLogin;
   const pressure = await getPressure(limit, offset, {
     user: user || "none",
     ...filters,

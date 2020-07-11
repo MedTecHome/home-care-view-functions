@@ -13,13 +13,13 @@ const getById = async (id) => {
 
 const getList = async (limit, offset, filters) => {
   const path = `profiles`;
-  const { seeDisabled, ...rest } = filters;
-  console.log(filters)
+  const { seeDisabled, userLogin, ...rest } = filters;
+  const parent = ["admin","clinic"].includes(userLogin.role) ? userLogin.id : userLogin.parent;
   const result = await retriveData(
     path,
     limit,
     offset,
-    rest,
+    {...rest, ...(rest.role ==='patient' ? {clinic: parent}: {parent: parent})},
     "fullname",
     "asc"
   );

@@ -3,6 +3,7 @@ const { getForEvolution } = require("./clinical-test/clinicalTest");
 
 const treatmentsEvolution = async (limit, offset, filters) => {
   const { rangeDate, user, ...params } = filters;
+  //params.role = 'patient';
   let result = [];
   if (user && rangeDate) {
     const start = await getTreatments(limit, offset, {
