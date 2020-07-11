@@ -40,7 +40,7 @@ const getList = async (limit, offset, filters) => {
     .filter((el) => el.visible);
 
   return {
-    total: result.total - (result.total - data.length),
+    total: result.total,
     data,
   };
 };
